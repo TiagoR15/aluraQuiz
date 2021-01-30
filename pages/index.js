@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -8,17 +7,10 @@ import Widget from '../src/components/widget/index';
 import Footer from '../src/components/footer/index';
 import GitHubCorner from '../src/components/gitHubCorner/index';
 import QuizBackground from '../src/components/quizBackground/index';
-
-export const QuizContainer = styled.div`
-  width: 100%;
-  max-width: 350px;
-  padding-top: 45px;
-  margin: auto 10%;
-  @media screen and (max-width: 500px) {
-    margin: auto;
-    padding: 15px;
-  }
-`;
+import Input from '../src/components/input/index';
+import Button from '../src/components/button/index';
+import QuizContainer from '../src/components/quizContainer/index';
+import QuizLogo from '../src/components/quizLogo/index';
 
 export default function Home() {
   const router = useRouter();
@@ -30,6 +22,7 @@ export default function Home() {
         <title>Alura Quiz</title>
       </Head>
       <QuizContainer>
+        <QuizLogo />
         <Widget>
           <Widget.Header>
             <h1>The legend of zelda</h1>
@@ -40,15 +33,17 @@ export default function Home() {
               router.push(`/quiz?name=${name}`);
             }}
             >
-              <input
+              <Input
+                name="username"
                 placeholder="Name"
                 onChange={(event) => {
                   setName(event.target.value);
                 }}
+                value={name}
               />
-              <button type="submit" disabled={name.length === 0}>
+              <Button type="submit" disabled={name.length === 0}>
                 Play
-              </button>
+              </Button>
             </form>
           </Widget.Content>
         </Widget>
