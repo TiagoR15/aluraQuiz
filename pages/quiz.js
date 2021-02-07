@@ -9,6 +9,7 @@ import QuizBackground from '../src/components/quizBackground/index';
 import QuizContainer from '../src/components/quizContainer/index';
 import AlternativesForm from '../src/components/alternativesForm/index';
 import Button from '../src/components/button/index';
+import Loading from '../src/components/loading/index';
 
 function ResultWidget({ results }) {
   return (
@@ -54,12 +55,8 @@ function LoadingWidget() {
   return (
     <Widget>
       <Widget.Header>
-        Loading...
+        <Loading />
       </Widget.Header>
-
-      <Widget.Content>
-        [Loading Challenge]
-      </Widget.Content>
     </Widget>
   );
 }
