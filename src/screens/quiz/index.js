@@ -2,14 +2,14 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 
-import db from '../db.json';
-import Widget from '../src/components/widget/index';
-import QuizLogo from '../src/components/quizLogo/index';
-import QuizBackground from '../src/components/quizBackground/index';
-import QuizContainer from '../src/components/quizContainer/index';
-import AlternativesForm from '../src/components/alternativesForm/index';
-import Button from '../src/components/button/index';
-import Loading from '../src/components/loading/index';
+import Widget from '../../components/widget/index';
+import QuizLogo from '../../components/quizLogo/index';
+import QuizBackground from '../../components/quizBackground/index';
+import QuizContainer from '../../components/quizContainer/index';
+import AlternativesForm from '../../components/alternativesForm/index';
+import Button from '../../components/button/index';
+import Loading from '../../components/loading/index';
+import BackLinkArrow from '../../components/backLinkArrow';
 
 function ResultWidget({ results }) {
   return (
@@ -22,13 +22,6 @@ function ResultWidget({ results }) {
         <p>
           You got right
           {' '}
-          {/* {results.reduce((somatoriaAtual, resultAtual) => {
-            const isAcerto = resultAtual === true;
-            if (isAcerto) {
-              return somatoriaAtual + 1;
-            }
-            return somatoriaAtual;
-          }, 0)} */}
           {results.filter((x) => x).length}
           {' '}
           questions
@@ -77,7 +70,7 @@ function QuestionWidget({
   return (
     <Widget>
       <Widget.Header>
-        {/* <BackLinkArrow href="/" /> */}
+        <BackLinkArrow href="/" />
         <h3>
           {`Question ${questionIndex + 1} of ${totalQuestions}`}
         </h3>
@@ -152,13 +145,14 @@ const screenStates = {
   LOADING: 'LOADING',
   RESULT: 'RESULT',
 };
-export default function QuizPage() {
+export default function QuizPage({ externalQuestions, externalBg }) {
   const [screenState, setScreenState] = useState(screenStates.LOADING);
   const [results, setResults] = useState([]);
-  const totalQuestions = db.questions.length;
+  const totalQuestions = externalQuestions.length;
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const questionIndex = currentQuestion;
-  const question = db.questions[questionIndex];
+  const question = externalQuestions[questionIndex];
+  const bg = externalBg;
 
   function addResult(result) {
     // results.push(result);
@@ -184,7 +178,7 @@ export default function QuizPage() {
   }
 
   return (
-    <QuizBackground backgroundImage={db.bg}>
+    <QuizBackground backgroundImage={bg}>
       <QuizContainer>
         <QuizLogo />
         {screenState === screenStates.QUIZ && (
